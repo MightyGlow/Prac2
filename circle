@@ -1,0 +1,32 @@
+//Practical 5
+public class circle {
+ double r;
+ circle(){
+ r = 1.0;
+ }
+ circle (double rr){
+ r = rr;
+ }
+ public double area(){
+ return (Math.PI*r*r);
+ }
+ public double circumference(){
+ return (2*Math.PI*r);
+ }
+ public static void main(String[] args) {
+ circle c1 = new circle();
+ circle c2 = new circle(5.0);
+ System.out.println("Radius of circle is
+"+c1.r);
+ System.out.println("Circumference of circle is
+"+c1.circumference());
+ System.out.println("Area of circle is
+"+c1.area());
+ System.out.println("Radius of circle is
+"+c2.r);
+ System.out.println("Circumference of circle is
+"+c2.circumference());
+ System.out.println("Area of circle is
+"+c2.area());
+ }
+}
