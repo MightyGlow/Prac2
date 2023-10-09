@@ -1,0 +1,111 @@
+//Practical 12
+import java.awt.*;
+import java.awt.event.*;
+class BMIApp extends Frame {
+ Label wl, hl, bmil, statusl;
+ TextField wtf, htf, bmitf, statustf;
+ Button calculate, reset;
+ BMIApp() {
+ super("BMI Calculator");
+ wl = new Label("Weight (kg)", Label.RIGHT);
+ hl = new Label("Height (cm)", Label.RIGHT);
+ bmil = new Label("BMI", Label.RIGHT);
+ statusl = new Label("Status", Label.RIGHT);
+ calculate = new Button("Calculate");
+ reset = new Button("Reset");
+ wtf = new TextField();
+ htf = new TextField();
+ bmitf = new TextField();
+ statustf = new TextField();
+ wl.setFont(new Font("Garamond", Font.BOLD,
+30));
+ hl.setFont(new Font("Garamond", Font.BOLD,
+30));
+ bmil.setFont(new Font("Garamond", Font.BOLD,
+30));
+ statusl.setFont(new Font("Garamond", Font.BOLD,
+30));
+ calculate.setFont(new Font("Garamond",
+Font.BOLD, 25));
+ reset.setFont(new Font("Garamond", Font.BOLD,
+25));
+ wtf.setFont(new Font("Garamond", Font.BOLD,
+30));
+ htf.setFont(new Font("Garamond", Font.BOLD,
+30));
+ bmitf.setFont(new Font("Garamond", Font.BOLD,
+30));
+ statustf.setFont(new Font("Garamond",
+Font.BOLD, 30));
+ bmitf.setEnabled(false);
+ statustf.setEnabled(false);
+ setLayout(new GridLayout(5, 2, 10, 10));
+ add(wl);
+ add(wtf);
+ add(hl);
+ add(htf);
+ add(bmil);
+ add(bmitf);
+ add(statusl);
+ add(statustf);
+ add(reset);
+ add(calculate);
+ setSize(350, 250);
+ setResizable(false);
+ setVisible(true);
+ addWindowListener(new WindowAdapter() {
+ public void windowClosing(WindowEvent we) {
+ System.exit(1);
+ }
+ });
+ reset.addActionListener(new ActionListener() {
+ public void actionPerformed(ActionEvent ae)
+{
+ clear();
+ }
+ });
+ calculate.addActionListener(new
+ActionListener() {
+ public void actionPerformed(ActionEvent ae)
+{
+ try {
+ double w, h, bmi;
+ w =
+Double.parseDouble(wtf.getText());
+ h =
+Double.parseDouble(htf.getText());
+ bmi = getBMI(w, h);
+ bmitf.setText(String.valueOf(bmi));
+ statustf.setText(getStatus(bmi));
+ } catch (Exception e) {
+ clear();
+ }
+ }
+ });
+ }
+ private void clear() {
+ wtf.setText(" ");
+ htf.setText(" ");
+ bmitf.setText(" ");
+ statustf.setText(" ");
+ }
+ private double getBMI(double w, double h) {
+ return w * 100 * 100 / (h * h);
+ }
+ private String getStatus(double bmi) {
+ String s = "";
+ if (bmi < 18.5) {
+ s = "UNDERWEIGHT";
+ }
+ if (bmi >= 18.5 && bmi <= 25) {
+ s = "NORMAL";
+ }
+ if (bmi > 25) {
+ s = "OVERWEIGHT";
+ }
+ return s;
+ }
+ public static void main(String[] args) {
+ BMIApp app = new BMIApp();
+ }
+}
