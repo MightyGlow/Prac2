@@ -1,0 +1,81 @@
+//Practical 8
+import java.util.*;
+class BankAcct {
+ private long balance;
+ public BankAcct(long initialDeposit) {
+ balance = initialDeposit;
+ }
+ public synchronized long getBalance() {
+ return balance;
+ }
+ public synchronized void deposit(long amount) {
+ System.out.println("Deposit --> " + amount);
+ balance += amount;
+ System.out.println("Deposit = " + amount + "
+Balance = " + getBalance());
+ notify();
+ }
+ public synchronized void withdraw(long amount) {
+ System.out.println("Withdrawal --> " + amount);
+ while ((balance - amount) < 0) {
+ try {
+ wait();
+ } catch (Exception e) {
+ }
+ }
+ balance -= amount;
+ System.out.println("Withdrawal = " + amount + "
+Balance = " + getBalance());
+ }
+}
+class Depositor implements Runnable {
+ BankAcct ac;
+ Thread t;
+ Random r;
+ Depositor(BankAcct ba) {
+ ac = ba;
+ r = new Random();
+ t = new Thread(this);
+ t.start();
+ }
+ public void run() {
+ while (true) {
+ int val = r.nextInt(11) + 10;
+ ac.deposit(val);
+ try {
+ Thread.sleep(1000 * (r.nextInt(11) +
+1));
+ } catch (Exception e) {
+ }
+ }
+ }
+}
+class Withdrawal implements Runnable {
+ BankAcct ac;
+ Thread t;
+ Random r;
+ Withdrawal(BankAcct ba) {
+ ac = ba;
+ r = new Random();
+ t = new Thread(this);
+ t.start();
+ }
+ public void run() {
+ while (true) {
+ int val = r.nextInt(21) + 40;
+ ac.withdraw(val);
+ try {
+ Thread.sleep(1000 * (r.nextInt(11) +
+1));
+ } catch (Exception e) {
+ }
+ }
+ }
+}
+class BankAcctDemo {
+ public static void main(String[] args) {
+ BankAcct acct = new BankAcct(20);
+ Depositor d = new Depositor(acct);
+ Withdrawal w = new Withdrawal(acct);
+ }
+}
