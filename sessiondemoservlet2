@@ -1,0 +1,42 @@
+protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        HttpSession sobj = request.getSession(true);
+        String fontcolor = request.getParameter("fontclr");
+        if(fontcolor.trim().equals("R")){
+            sobj.setAttribute("fclr","red");
+        }
+        else if(fontcolor.trim().equals("B")){
+            sobj.setAttribute("fclr","blue");
+        }
+        else if(fontcolor.trim().equals("G")){
+            sobj.setAttribute("fclr","green");
+        }
+        else{
+            sobj.setAttribute("fclr","black");
+        }
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        try{
+           /* TODO output your page here. You may use following sample code */
+           out.println("<html>");
+           out.println("<head>");
+           out.println("<title>Servlet Session Demo</title>");
+           out.println("</head>");
+           //out,println("<body>");
+           out.println("<body style=\"font-size:"+ sobj.getAttribute("fsz")+ "pt; color:" + 
+                   sobj.getAttribute("fclr")+"\">");
+           out.println("<br>The font size is:" + sobj.getAttribute("fsz"));
+           out.println("<br>The font color is:" + sobj.getAttribute("fclr"));
+           /*sobj.setMaxInactiveInterval(0);
+           //sobj.invalidate();
+           sobj=request.getSession(false);
+           if(sobj == null){
+           out.println("<br> The session object is destroyed");
+           }*/
+           out.println("</body>");
+           out.println("</html>");
+        }finally{
+            out.close();
+        }
+
+    }
