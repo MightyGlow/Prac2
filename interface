@@ -1,0 +1,125 @@
+//Practical 7
+interface InfBankAccount {
+ void deposit(double amt);
+ boolean withdraw(double amt);
+ String toString();
+}
+abstract class AbsBankAccount implements InfBankAccount
+{
+ private static long id = 100;
+ protected String name;
+ protected long acctNo;
+ protected double currBalance;
+ protected void assignAcctNo() {
+ acctNo = ++id;
+ }
+ public abstract boolean withdraw(double amt);
+ public static long getLastAcctNo() {
+ return id;
+ }
+ public String toString() {
+ String str = "";
+ str = str + "\nName of Account Holder: " +
+name;
+ str = str + "\nAccount Number: " + acctNo;
+ str = str + "\nCurrent Balance : Rs. " +
+currBalance;
+ return str;
+ }
+}
+class SavingBankAccount extends AbsBankAccount {
+ protected double minBalance;
+ SavingBankAccount(String name, double currBalance,
+double minBalance) {
+ this.name = name;
+ this.currBalance = currBalance;
+ this.minBalance = minBalance;
+ assignAcctNo();
+ }
+ public String toString() {
+ String str = super.toString();
+ str = str + "\nMinimum Balance : Rs. " +
+minBalance;
+ return str;
+ }
+ public boolean withdraw(double amt) {
+ boolean flag = true;
+ if (currBalance - amt < minBalance) {
+ flag = false;
+ } else {
+ currBalance -= amt;
+ }
+ return flag;
+ }
+ public void deposit(double amt) {
+ currBalance += amt;
+ }
+ public static long getLastAcctNo() {
+ return AbsBankAccount.getLastAcctNo();
+ }
+}
+class CurrentBankAccount extends AbsBankAccount {
+ protected double overDraftLimit;
+ CurrentBankAccount(String name, double currBalance,
+double odl) {
+ this.name = name;
+ this.currBalance = currBalance;
+ overDraftLimit = odl;
+ assignAcctNo();
+ }
+ public String toString() {
+ String str = super.toString();
+ str = str + "\nOverdraft Limit : Rs. " +
+overDraftLimit;
+ return str;
+ }
+ public boolean withdraw(double amt) {
+ boolean flag = true;
+ if (overDraftLimit + currBalance < amt) {
+ flag = false;
+ } else {
+ currBalance -= amt;
+ }
+ return flag;
+ }
+ public void deposit(double amt) {
+ currBalance += amt;
+ }
+ public static long getLastAcctNo() {
+ return AbsBankAccount.getLastAcctNo();
+ }
+}
+public class InheritanceDemo {
+ public static void main(String[] args) {
+ AbsBankAccount abs;
+ abs = new SavingBankAccount("Issac Newton",
+120000, 1000);
+ System.out.println(abs);
+ if (abs.withdraw(119010)) {
+ System.out.println("\nWithdrawal
+Successful");
+ System.out.println(abs);
+ } else {
+ System.out.println("\nWithdrawal
+Unsuccessful!");
+ System.out.println(abs);
+ }
+ abs.deposit(50000);
+ System.out.println(abs);
+ InfBankAccount inf;
+ inf = new CurrentBankAccount("Leonard Euler",
+20000, 1000);
+ System.out.println(inf);
+ if (inf.withdraw(12000)) {
+ System.out.println("\nWithdrawal
+Successful");
+ System.out.println(inf);
+ } else {
+ System.out.println("\nWithdrawal
+Unsuccessful!");
+ System.out.println(inf);
+ }
+ inf.deposit(550000);
+ System.out.println(inf);
+ }
+}
