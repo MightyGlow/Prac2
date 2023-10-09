@@ -1,0 +1,42 @@
+//Practical 14
+import java.util.*;
+public class VectorDemo {
+ public static void main(String[] args) {
+ Vector<String> v = new Vector<>();
+ Random r = new Random();
+ String[] names = {
+ "Alan Turing", "Dennis Ritchie", "Ken
+Thompson", "James Gosling",
+ "Bjarne Stroustrup", "Ronald Rivest",
+"Steve Jobs", "Bill Gates",
+ "Larry Page", "Jawed Karim", "Larry
+Ellison", "Gordon Moore", "John Backus"
+ };
+ int len = names.length;
+ for (int i = 0; i < len; i++) {
+ v.add(names[i]);
+ }
+ System.out.println("\n" + v);
+ Collections.sort(v);
+ System.out.println("---- After sorting");
+ System.out.println("\n" + v);
+ int s = v.size();
+ System.out.println("\nThe number of elements
+are: " + s);
+ int t = v.indexOf("Ronald Rivest");
+ System.out.println("\nThe element Ronald Rivest
+is at the index: " + t);
+ v.remove(t);
+ System.out.println("\nAfter removing element at
+index " + t);
+ System.out.println("\n" + v);
+ v.insertElementAt("Adi Shamir", t);
+ System.out.println("\nAfter inserting Adi
+Shamir at index " + t);
+ System.out.println("\n" + v);
+ List<String> l = v.subList(0, 4);
+ System.out.println("\nThe new list of the first
+three elements");
+ System.out.println("\n" + l);
+ }
+}
