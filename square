@@ -1,0 +1,27 @@
+//Practical 4
+public class square {
+ private double s;
+ square (double ss){
+ s = ss;
+ }
+ double perimeter(){
+ return 4*s;
+ }
+ double diagonal(){
+ return s*Math.sqrt(2);
+ }
+ double area(){
+ return s*s;
+ }
+ void display(){
+ System.out.println("Side of square is "+s+"
+units ");
+ }
+ public static void main(String[] args) {
+ square s1 = new square(2);
+ s1.display();
+ System.out.println("Perimeter =
+"+s1.perimeter());
+ System.out.println("Area :"+s1.area());
+ System.out.println("Diagonal "+s1.diagonal());
+ }
