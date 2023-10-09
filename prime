@@ -1,0 +1,25 @@
+//Practical 3
+public class IsPrime {
+ public static boolean Prime(int n) {
+ if (n<=1){
+ return false;
+ }
+ for (int i = 2; i<=Math.sqrt(n);i++){
+ if (n % i == 0){
+ return false;
+ }
+ }
+ return true;
+ }
+ public static void main(String[] args) {
+ int val = Integer.parseInt(args[0]);
+ if (Prime(val)){
+ System.out.println(val+" is a prime
+number");
+ }
+ else{
+ System.out.println(val+" is not a prime
+number");
+ }
+ }
+}
