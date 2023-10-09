@@ -1,0 +1,61 @@
+//Practical 11
+class Fraction {
+ int num;
+ int den;
+ Fraction() {
+ this(1, 1);
+ }
+ Fraction(int num, int den) {
+ this.num = num;
+ this.den = den;
+ }
+ public String toString() {
+ String s = "";
+ s = s + String.valueOf(num) + "/" +
+String.valueOf(den);
+ return s;
+ }
+ public float decimal() {
+ return (float) num / (float) den;
+ }
+ public Fraction add(Fraction f) {
+ return new Fraction((num * f.den + den *
+f.num), (den * f.den));
+ }
+ public Fraction subtract(Fraction f) {
+ return new Fraction((num * f.den - den *
+f.num), (den * f.den));
+ }
+ public Fraction multiply(Fraction f) {
+ return new Fraction((num * f.num), (den *
+f.den));
+ }
+ public Fraction divide(Fraction f) {
+ return new Fraction((num * f.den), (den *
+f.num));
+ }
+ public static void main(String[] args) {
+ Fraction f1, f2, sum, diff, product, division;
+ float dec;
+ f1 = new Fraction(2, 3);
+ f2 = new Fraction(4, 5);
+ System.out.println("Here are the two
+fractions:\n");
+ System.out.println(f1);
+ System.out.println(f2);
+ sum = f1.add(f2);
+ System.out.println("Their sum is " + sum);
+ diff = f1.subtract(f2);
+ System.out.println("Their difference is " +
+diff);
+ product = f1.multiply(f2);
+ System.out.println("Their multiplication is " +
+product);
+ division = f1.divide(f2);
+ System.out.println("Their division is " +
+division);
+ dec = f1.decimal();
+ System.out.println("The decimal value of f1 is
+" + dec);
+ }
+}
