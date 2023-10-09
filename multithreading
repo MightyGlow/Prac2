@@ -1,0 +1,46 @@
+//Practical 10
+import java.util.*;
+class MTest {
+ synchronized public void print(char c) {
+ // public void print(char c){
+System.out.print("<" + c);
+ try {
+ Thread.sleep(1000 * (new
+Random().nextInt(3) + 4));
+ } catch (Exception e) {}
+ System.out.print(c + ">");
+ }
+}
+public class Multithreading_04 implements Runnable {
+ Thread t;
+ char c;
+ MTest mt;
+ Multithreading_04(MTest m, char cc) {
+ t = new Thread(this);
+ c = cc;
+ mt = m;
+ }
+ public void run() {
+ while (true) {
+ try {
+ mt.print(c);
+ Thread.sleep(100);
+ } catch (Exception e) {}
+ }
+ }
+ public static void main(String[] args) {
+ Multithreading_04 t1, t2, t3;
+ MTest obj = new MTest();
+ t1 = new Multithreading_04(obj, 'A');
+ t2 = new Multithreading_04(obj, '$');
+ t3 = new Multithreading_04(obj, '5');
+ t1.t.start();
+ t2.t.start();
+ t3.t.start();
+ try {
+ t1.t.join();
+ t2.t.join();
+ t3.t.join();
+ } catch (Exception e) {}
+ }
+}
