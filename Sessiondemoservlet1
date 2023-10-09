@@ -1,0 +1,22 @@
+protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws IOException{
+        HttpSession sobj =  request.getSession(true);
+        String sz = request.getParameter("fontsz");
+        sobj.setAttribute("fsz",sz);
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        try{
+           /* TODO output your page here. You may use following sample code */
+           out.println("<html>\n" +
+                            "head>\n" +
+                               "meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n" +
+                               "<title> JSP Page</title>\n" +
+                               "</head>\n" +
+                               "<body><form method=\"POST\" action=\"Color.html\">\n" +
+                               "<div align=\"center\"><br>You have selected the font size. Now Click on Proceed to select the font color" +
+                               "<br>\n" +
+                               "<input type=submit value=Proceed>\n" +
+                               "</div>\n" +
+                               "</form></body></html>");
+        } finally{
+            out.close();}
+    }
